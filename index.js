@@ -10,7 +10,7 @@ function submit(){
                     ${document.querySelector('#newtask input').value}
                 </span>
                 <button class="delete">
-                    Delete
+                <i class="far fa-trash-alt"></i>
                 </button>
             </div>
         `;

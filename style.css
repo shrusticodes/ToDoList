@@ -1,8 +1,6 @@
 *,
 *:before,
 *:after{
-    padding: 0;
-    margin: 0;
     box-sizing: border-box;
 }
 body{
@@ -22,17 +20,12 @@ h1{
 }
 #main{
     width: 30%;
-    top: 20%;
-    left: 50%;
     background: white;
     border-radius: 10px;
     min-width: 450px;
     position: absolute;
-    min-height: 100px;
-    transform: translate(-50%,-50%);
 }
 #newtask{
-    position: relative;
     padding: 30px 20px;
 }
 #newtask input{
@@ -61,4 +54,43 @@ h1{
     height: 45px;
     border-radius: 5px;
     font-family: 'Poppins',sans-serif;
+}
+#tasks{
+    border-radius: 10px;
+    width: 100%;
+    background-color: #ffffff;
+    margin-top: 10px;
+    padding: 20px 10px;
+}
+
+.task{
+    border-radius: 5px;
+    align-items: center;
+    justify-content: space-between;
+    border: 1px solid #939697;
+    cursor: pointer;
+    background-color:#ffffff;
+    height: 50px;
+    margin-bottom: 8px;
+    padding: 5px 10px;
+    display: flex;
+}
+.task span{
+    font-family: 'Poppins',sans-serif;
+    font-size: 20px;
+    font-weight: 500;
+}
+.task button{
+    background-color:  rgb(27, 121, 125);
+    position: relative;
+    float: right;
+    color: #ffffff;
+    border: none;
+    cursor: pointer;
+    outline: none;
+    height: 100%;
+    width: 40px;
+    border-radius: 5px;
+    font-weight: 500;
+    font-size: 16px;
 }
