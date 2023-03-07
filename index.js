@@ -15,6 +15,9 @@ function submit(){
         but1.className="edit"
         let icon1=document.createElement('i');
         icon1.className="far fa-edit"
+        let check=document.createElement('input');
+        check.type="checkbox";
+        check.value=`${document.querySelector('#newtask textarea').value}`;
         let span=document.createElement('span');
         let span1=document.createElement('span');
         let t=document.createTextNode(`${document.querySelector('#newtask textarea').value}`);
@@ -23,6 +26,7 @@ function submit(){
         div.appendChild(span);
         but.appendChild(icon);
         but1.appendChild(icon1);
+        span1.appendChild(check);
         span1.appendChild(but);
         span1.appendChild(but1);
         div.appendChild(span1);
