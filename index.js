@@ -58,6 +58,8 @@ function submit(){
         //         </span>
         //         <button class="delete">
         //         <i class="far fa-trash-alt"></i>
-        //         </button>
+        // //         </button>
+        // <input type="checkbox" checked="checked">
+        // <span class="geekmark"></span>
         //     </div>
         // `;
