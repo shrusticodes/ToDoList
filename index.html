@@ -6,18 +6,17 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>To Do List</title>
     <link rel="stylesheet" href="style.css">
+    <script src="index.js"></script>
 </head>
 <body>
-    <br>
-    
     <div id="main">
         <div id="head"> <h1>To Do List</h1></div>
         <div id="newtask">
             <input type="text" placeholder="Add Tasks">
-            <button id="push">Add</button>
+            <button id="push" onclick="submit()">Add</button>
+            <div id="tasks"></div>
         </div>
     </div>
-    <br><br>
-    <div id="list"></div>
+    <div id="list"> <div id="tasks"></div></div>
 </body>
 </html>
