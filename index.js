@@ -89,8 +89,6 @@ function arrayDelete(id)
 
 
 
-
-
  // document.querySelector('#tasks').innerHTML += `
         //     <div class="task">
         //         <span id="taskname">
