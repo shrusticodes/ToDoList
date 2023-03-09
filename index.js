@@ -103,7 +103,7 @@ function handleCheck(element)
        console.log(chArr);
     }
     else{
-        let m=chArr.findIndex((o)=>(o===element.value));
+         let m=chArr.findIndex((o)=>(o===element.value));
          chArr.splice(m,1);
          console.log(chArr);
         }
