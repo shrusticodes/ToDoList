@@ -1,9 +1,17 @@
+let arr=new Array();
 function submit(){
     if(document.querySelector('#newtask textarea').value==" "){
         alert("Kindly Enter Task Name!!!!")
     }
-
     else{
+        arr.push(`${document.querySelector('#newtask textarea').value}`);
+        display();
+        console.log(arr);
+        deleteTask();
+        edit();
+    }
+}
+function display(){
         let task=document.getElementById('tasks');
         let div=document.createElement('div');
         div.className="task";
@@ -19,6 +27,7 @@ function submit(){
         check.type="checkbox";
         check.value=`${document.querySelector('#newtask textarea').value}`;
         let span=document.createElement('span');
+        span.id=Math.floor((Math.random() * 1000) + 1);
         let span1=document.createElement('span');
         let t=document.createTextNode(`${document.querySelector('#newtask textarea').value}`);
         document.querySelector('#newtask textarea').value=" ";
@@ -31,22 +40,38 @@ function submit(){
         span1.appendChild(but1);
         div.appendChild(span1);
         task.appendChild(div);
-        var current_tasks = document.querySelectorAll(".delete");
-        for(var i=0; i<current_tasks.length; i++){
-            current_tasks[i].onclick = function(){
-                this.parentElement.parentElement.remove();
-            }
-        }
-        var edit_tasks=document.querySelectorAll(".edit");
-        for(var i=0;i<edit_tasks.length;i++){
-            edit_tasks[i].onclick=function()
-            {
-                document.querySelector('#newtask textarea').value=this.parentElement.previousElementSibling.innerHTML;
-                this.parentElement.parentElement.remove();
-            }
+}
+function edit()
+{ 
+    var edit_tasks=document.querySelectorAll(".edit");
+    for(var i=0;i<edit_tasks.length;i++){
+        edit_tasks[i].onclick=function()
+        {
+            document.querySelector('#newtask textarea').value=this.parentElement.previousElementSibling.innerHTML;
+            let id=this.parentElement.previousElementSibling.id;
+            let innerText=document.getElementById(id).textContent;
+            let ind=arr.findIndex(o=>innerText===o);
+            arr.splice(ind,1);
+            console.log(arr);
+            this.parentElement.parentElement.remove();
         }
     }
 }
+function deleteTask(){
+    var current_tasks = document.querySelectorAll(".delete");
+        for(var i=0; i<current_tasks.length; i++){
+        current_tasks[i].onclick = function(){
+        let id=this.parentElement.previousElementSibling.id;
+        let innerText=document.getElementById(id).textContent;
+        let ind=arr.findIndex(o=>innerText===o);
+        arr.splice(ind,1);
+        console.log(arr);
+        this.parentElement.parentElement.remove();
+        }
+    }
+}
+
+
 
 
 
@@ -67,3 +92,10 @@ function submit(){
         // <span class="geekmark"></span>
         //     </div>
         // `;
+
+         // var current_tasks = document.querySelectorAll(".delete");
+        // for(var i=0; i<current_tasks.length; i++){
+        //     current_tasks[i].onclick = function(){
+        //         this.parentElement.parentElement.remove();
+        //     }
+        // }
