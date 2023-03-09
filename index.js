@@ -1,15 +1,22 @@
 let arr=new Array();
 function submit(){
     if(document.querySelector('#newtask textarea').value==" "){
-        alert("Kindly Enter Task Name!!!!")
+        alert("Kindly Enter Task Name")
     }
     else{
+        let text=`${document.querySelector('#newtask textarea').value}`;
+        let tof=arr.includes(text);
+        console.log(tof)
+        if(tof)
+        alert("Same task name");
+        else{
         arr.push(`${document.querySelector('#newtask textarea').value}`);
         display();
         console.log(arr);
         deleteTask();
         edit();
     }
+}
 }
 function display(){
         let task=document.getElementById('tasks');
@@ -30,7 +37,7 @@ function display(){
         span.id=Math.floor((Math.random() * 1000) + 1);
         let span1=document.createElement('span');
         let t=document.createTextNode(`${document.querySelector('#newtask textarea').value}`);
-        document.querySelector('#newtask textarea').value=" ";
+        document.querySelector('#newtask textarea').value="";
         span.appendChild(t);
         div.appendChild(span);
         but.appendChild(icon);
@@ -71,7 +78,6 @@ function arrayDelete(id)
     arr.splice(ind,1);
     console.log(arr);
 }
-
 
 
 
