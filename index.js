@@ -49,10 +49,7 @@ function edit()
         {
             document.querySelector('#newtask textarea').value=this.parentElement.previousElementSibling.innerHTML;
             let id=this.parentElement.previousElementSibling.id;
-            let innerText=document.getElementById(id).textContent;
-            let ind=arr.findIndex(o=>innerText===o);
-            arr.splice(ind,1);
-            console.log(arr);
+            arrayDelete(id);
             this.parentElement.parentElement.remove();
         }
     }
@@ -62,15 +59,18 @@ function deleteTask(){
         for(var i=0; i<current_tasks.length; i++){
         current_tasks[i].onclick = function(){
         let id=this.parentElement.previousElementSibling.id;
-        let innerText=document.getElementById(id).textContent;
-        let ind=arr.findIndex(o=>innerText===o);
-        arr.splice(ind,1);
-        console.log(arr);
+        arrayDelete(id);
         this.parentElement.parentElement.remove();
         }
     }
 }
-
+function arrayDelete(id)
+{
+    let innerText=document.getElementById(id).textContent;
+    let ind=arr.findIndex(o=>innerText===o);
+    arr.splice(ind,1);
+    console.log(arr);
+}
 
 
 
