@@ -1,24 +1,31 @@
 let arr=new Array();
+function tasks(id,task){
+    this.id=id;
+    this.task=task;
+}
 function submit(){
     if(document.querySelector('#newtask textarea').value==" "){
         alert("Kindly Enter Task Name")
     }
     else{
+        let obj;
+        let objID=Math.floor((Math.random() * 1000) + 1);
         let text=`${document.querySelector('#newtask textarea').value}`;
         let tof=arr.includes(text);
         console.log(tof)
         if(tof)
         alert("Same task name");
         else{
-        arr.push(`${document.querySelector('#newtask textarea').value}`);
-        display();
+        obj=new tasks(objID,`${document.querySelector('#newtask textarea').value}`);
+        arr.push(obj);
+        display(objID);
         console.log(arr);
         deleteTask();
         edit();
     }
 }
 }
-function display(){
+function display(id){
         let task=document.getElementById('tasks');
         let div=document.createElement('div');
         div.className="task";
@@ -34,7 +41,7 @@ function display(){
         check.type="checkbox";
         check.value=`${document.querySelector('#newtask textarea').value}`;
         let span=document.createElement('span');
-        span.id=Math.floor((Math.random() * 1000) + 1);
+        span.id=id;
         let span1=document.createElement('span');
         let t=document.createTextNode(`${document.querySelector('#newtask textarea').value}`);
         document.querySelector('#newtask textarea').value="";
@@ -73,10 +80,8 @@ function deleteTask(){
 }
 function arrayDelete(id)
 {
-    let innerText=document.getElementById(id).textContent;
-    let ind=arr.findIndex(o=>innerText===o);
-    arr.splice(ind,1);
-    console.log(arr);
+   let m=arr.findIndex((o)=>o.id==id);
+   arr.splice(m,1);
 }
 
 
