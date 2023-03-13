@@ -47,7 +47,7 @@ function display(id){
         let span1=document.createElement('span');
         let t=document.createTextNode(`${document.querySelector('#newtask textarea').value}`);
         document.querySelector('#newtask textarea').value="";
-        span.appendChild(check);
+        span1.appendChild(check);
         span.appendChild(t);
         div.appendChild(span);
         but.appendChild(icon);
@@ -59,16 +59,27 @@ function display(id){
 }
 function edit()
 { 
+    const divs=document.querySelector("#newtask");       
+    let submit=document.getElementById('push');
     var edit_tasks=document.querySelectorAll(".edit");
-    for(var i=0;i<edit_tasks.length;i++){
-        edit_tasks[i].onclick=function()
-        {
-            document.querySelector('#newtask textarea').value=this.parentElement.previousElementSibling.innerText;
-            let id=this.parentElement.previousElementSibling.id;
-            arrayDelete(id);
-            this.parentElement.parentElement.remove();
-        }
-    }
+    let update=document.createElement('button');
+    update.innerText = "Update";
+    let i;
+    for (i = 0; i < edit_tasks.length; i++) {
+        edit_tasks[i].onclick = (function(i) {
+          return function() {
+            document.querySelector('#newtask textarea').value = this.parentElement.previousElementSibling.innerText;
+            let id = this.parentElement.previousElementSibling.id;
+            divs.replaceChild(update, submit);
+            update.onclick = function() {
+              taskEdit(id);
+              let spanElement = document.querySelectorAll('.task span:first-child');
+              spanElement[i].textContent = `${document.querySelector('#newtask textarea').value}`;
+              divs.replaceChild(submit,update);
+            }
+          }
+        })(i)
+       }   
 }
 function deleteTask(){
     var current_tasks = document.querySelectorAll(".delete");
@@ -107,6 +118,12 @@ function handleCheck(element)
          chArr.splice(m,1);
          console.log(chArr);
         }
+}
+function taskEdit(id)
+{
+    let m=arr.findIndex((o)=>o.id==id); 
+    arr[m].task=`${document.querySelector('#newtask textarea').value}`;
+    console.log(arr);
 }
 
 
