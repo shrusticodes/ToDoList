@@ -1,8 +1,8 @@
 let arr=new Array();
-let chArr=new Array();
-function tasks(id,task){
+function tasks(id,task,isChecked){
     this.id=id;
     this.task=task;
+    this.isChecked=isChecked;
 }
 function submit(){
     if(document.querySelector('#newtask textarea').value==""){
@@ -12,32 +12,36 @@ function submit(){
         let obj;
         let objID=Math.floor((Math.random() * 1000) + 1);
         let text=`${document.querySelector('#newtask textarea').value}`;
-        let tof=arr.find((o)=>o.task==text);
-        if(tof)
+        let truthOrFalse=arr.find((o)=>o.task==text);
+        if(truthOrFalse)
         alert("Same task name");
         else{
-        obj=new tasks(objID,`${document.querySelector('#newtask textarea').value}`);
+        obj=new tasks(objID,`${document.querySelector('#newtask textarea').value}`,false);
         arr.push(obj);
         display(objID);
         console.log(arr);
-        checked();
+        onChecked(objID);
         deleteTask();
         edit();
     }
 }
 }
 function display(id){
+        // let div1=document.getElementById('newtask');
         let task=document.getElementById('tasks');
         let div=document.createElement('div');
         div.className="task";
-        let but=document.createElement('button');
-        but.className="delete"
+        let button=document.createElement('button');
+        button.className="delete"
         let icon=document.createElement('i');
         icon.className="far fa-trash-alt"
-        let but1=document.createElement('button');
-        but1.className="edit"
+        let button1=document.createElement('button');
+        button1.className="edit"
         let icon1=document.createElement('i');
         icon1.className="far fa-edit"
+        // let button3=document.createElement('button');
+        // button3.className="filter"
+        // button3.innerText="Filter"
         let check=document.createElement('input');
         check.type="checkbox";
         check.value=`${document.querySelector('#newtask textarea').value}`;
@@ -45,23 +49,24 @@ function display(id){
         let span=document.createElement('span');
         span.id=id;
         let span1=document.createElement('span');
-        let t=document.createTextNode(`${document.querySelector('#newtask textarea').value}`);
+        let textNode=document.createTextNode(`${document.querySelector('#newtask textarea').value}`);
         document.querySelector('#newtask textarea').value="";
         span1.appendChild(check);
-        span.appendChild(t);
+        span.appendChild(textNode);
         div.appendChild(span);
-        but.appendChild(icon);
-        but1.appendChild(icon1);
-        span1.appendChild(but);
-        span1.appendChild(but1);
+        button.appendChild(icon);
+        button1.appendChild(icon1);
+        // div1.appendChild(button3);
+        span1.appendChild(button);
+        span1.appendChild(button1);
         div.appendChild(span1);
         task.appendChild(div);
 }
 function edit()
 { 
-    const divs=document.querySelector("#newtask");       
+    const newDiv=document.querySelector("#newtask");       
     let submit=document.getElementById('push');
-    var edit_tasks=document.querySelectorAll(".edit");
+    let edit_tasks=document.querySelectorAll(".edit");
     let update=document.createElement('button');
     update.innerText = "Update";
     let i;
@@ -75,7 +80,7 @@ function edit()
               taskEdit(id);
               let spanElement = document.querySelectorAll('.task span:first-child');
               spanElement[i].textContent = `${document.querySelector('#newtask textarea').value}`;
-              divs.replaceChild(submit,update);
+              newDiv.replaceChild(submit,update);
             }
           }
         })(i)
@@ -93,79 +98,31 @@ function deleteTask(){
 }
 function arrayDelete(id)
 {
-   let m=arr.findIndex((o)=>o.id==id);
-   let n=chArr.findIndex((o)=>o===arr[m].task)
-   chArr.splice(n,1);
-   arr.splice(m,1);
-   console.log(chArr);
+   let index=arr.findIndex((o)=>o.id==id);
+   arr.splice(index,1);
 }
-function checked()
+function onChecked(objID)
 {
 var checkedtask = document.querySelectorAll('.check');
 for (var i = 0; i < checkedtask.length; i++) {
-checkedtask[i].onclick= function() {
-handleCheck(this);};
+checkedtask[i].onclick= (function(i) {
+    return function(){
+    handleCheck(this,i);}
+})(i);
 }
 }
-function handleCheck(element) 
+function handleCheck(element,i) 
 {
     if (element.checked == true) {
-       chArr.push(element.value);
-       console.log(chArr);
+        arr[i].isChecked=true;
     }
-    else{
-         let m=chArr.findIndex((o)=>(o===element.value));
-         chArr.splice(m,1);
-         console.log(chArr);
+    else {
+         arr[i].isChecked=false;
         }
 }
 function taskEdit(id)
 {
-    let m=arr.findIndex((o)=>o.id==id); 
-    arr[m].task=`${document.querySelector('#newtask textarea').value}`;
+    let index=arr.findIndex((o)=>o.id==id); 
+    arr[index].task=`${document.querySelector('#newtask textarea').value}`;
     console.log(arr);
 }
-
-
-// function checked()
-// {
-//     var checkedtask=document.querySelectorAll('.check');
-//     for(var i=0;i<checkedtask.length;i++)
-//     {
-//     checkedtask[i].onclick=function(){
-//     if(checkedtask[i].check==true){
-//     ids.forEach((o)=>{let checkbox=document.getElementById(o).value;
-//     chArr.push(checkbox);
-//     console.log(chArr);})
-//     }
-// function checked(id){
-//     var checkedtask= document.querySelectorAll(".check");
-//     console.log(checkedtask)
-//     for(var i=0; i<checkedtask.length; i++){
-//         if(checkedtask[i].checked==true)
-//         {
-//             let checkbox=document.getElementById(id);
-//             chArr.push(checkbox.textContent);
-//             console.log(chArr);
-//         }
-//     }
-// }
- // document.querySelector('#tasks').innerHTML += `
-        //     <div class="task">
-        //         <span id="taskname">
-        //             ${document.querySelector('#newtask textarea').value}
-        //         </span>
-        //         <button class="delete">
-        //         <i class="far fa-trash-alt"></i>
-        // //         </button>
-        // <input type="checkbox" checked="checked">
-        // <span class="geekmark"></span>
-        //     </div>
-        // `;
-
-         // var current_tasks = document.querySelectorAll(".delete");
-        // for(var i=0; i<current_tasks.length; i++){
-        //     current_tasks[i].onclick = function(){
-        //         this.parentElement.parentElement.remove();
-        //     }
-        // }
