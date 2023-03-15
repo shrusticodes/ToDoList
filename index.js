@@ -136,8 +136,6 @@ function submit() {
     span1.appendChild(button1);
     return span1;
   }
-  
-
 // let button3=document.createElement('button');
 // button3.className="filter"
 // button3.innerText="Filter"
