@@ -36,9 +36,7 @@ function submit() {
       'span',
       `${document.querySelector('#newtask textarea').value}`
     );
-    let span1 = createSpanWithButtons(
-
-    );
+    let span1 = createSpanWithButtons();
     document.querySelector('#newtask textarea').value = '';
     div.appendChild(span);
     div.appendChild(span1);
