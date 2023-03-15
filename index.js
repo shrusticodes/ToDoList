@@ -4,6 +4,10 @@ function tasks(id,task,isChecked){
     this.task=task;
     this.isChecked=isChecked;
 }
+window.onload=function()
+{
+displayAll(arr);
+}
 function submit() {
     if (document.querySelector('#newtask textarea').value == '') {
       alert('Kindly Enter Task Name');
@@ -32,7 +36,9 @@ function submit() {
       'span',
       `${document.querySelector('#newtask textarea').value}`
     );
-    let span1 = createSpanWithButtons();
+    let span1 = createSpanWithButtons(
+
+    );
     document.querySelector('#newtask textarea').value = '';
     div.appendChild(span);
     div.appendChild(span1);
@@ -121,13 +127,16 @@ function submit() {
     newSpan.appendChild(textNode);
     return newSpan;
   }
-  function createSpanWithButtons() {
+  function createSpanWithButtons(isChecked) {
     let span1 = createElements('span', 'span');
     let check = createElements('check', 'input');
     check.addEventListener('mouseover', onChecked);
     check.type = 'checkbox';
     check.value = `${document.querySelector('#newtask textarea').value}`;
     span1.appendChild(check);
+    if(isChecked==true){
+        check.checked=true;
+    }
     let button = createButton('delete', 'far fa-trash-alt');
     let button1 = createButton('edit', 'far fa-edit');
     button.addEventListener('mouseover', deleteTask);
@@ -138,4 +147,25 @@ function submit() {
   }
 // let button3=document.createElement('button');
 // button3.className="filter"
-// button3.innerText="Filter"
+// button3.innerText="Filter";
+let obj1=new tasks(123,"Go to sleep",true);
+let obj2=new tasks(193,"Clean up the mess",false);
+let obj3=new tasks(89,"Gardening",true);
+let obj4=new tasks(10,"Badminton",false);
+let obj5=new tasks(128,"Finish assesment",false);
+arr=[obj1,obj2,obj3,obj4,obj5];
+
+function displayAll(arr)
+{
+    arr.forEach((o)=>{
+    let task = document.getElementById('tasks');
+    let div = createElements('task', 'div');
+    let span = createSpan(o.id,'span',o.task);
+    let span1 = createSpanWithButtons(o.isChecked);
+    document.querySelector('#newtask textarea').value = '';
+    div.appendChild(span);
+    div.appendChild(span1);
+    task.appendChild(div);
+    return task;
+    })
+}
