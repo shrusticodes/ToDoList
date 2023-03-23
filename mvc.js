@@ -20,5 +20,9 @@ class Model{
         this.toDoList=this.toDoList.forEach((toDo)=>
         toDo.id===id?toDo.task=updatedTask:toDo.task);
     }
-    deleteTask
+    deleteTask(id)
+    {
+        let index = this.toDoList.findIndex((task) => task.id === id);
+        this.toDoList.splice(index, 1);
+    }
 }
