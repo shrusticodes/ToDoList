@@ -31,7 +31,29 @@ class Model{
         this.toDoList[index].checked=!this.toDoList[index].checked;
     }
 }
-let m=new Model();
 class View{
-    
+constructor(){
+    this.mainDiv=this.getHTMLElement('#root');
+    this.title=this.createHTMLElement('h1');
+    this.title.textContent="To Do List";
+    this.form=this.createHTMLElement('form');
+    this.input=this.createHTMLElement('input');
+    this.input.type="text";
+    this.input.name="task";
+    this.submitButton=this.createHTMLElement('button');
+    this.submitButton.textContent="SUBMIT";
+    this.taskList=this.createHTMLElement('ul', task_List);
+    this.form.append(this.input,this.submitButton);
+    this.mainDiv.append(this.title,this.form,this.taskList);
+}
+createHTMLElement(tagName)
+{
+    let element = document.createElement(tagName);
+    return element;
+}
+getHTMLElement(selector)
+{
+    let element = document.querySelector(selector);
+    return element;
+}
 }
