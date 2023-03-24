@@ -72,7 +72,7 @@ displayElements()
     span.textContent=task.task;
     span.contentEditable=true;
     let deleteButton=this.createHTMLElement('button');
-    deleteButton.textContent="Delete";
+    deleteButton.textContent="DELETE";
     li.append(checkbox,span,deleteButton);
     this.taskList.append(li);});
 }
