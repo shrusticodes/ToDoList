@@ -55,6 +55,13 @@ getHTMLElement(selector)
     let element = document.querySelector(selector);
     return element;
 }
+get todoText() {
+    return this.input.value;
+  }
+  
+resetInput() {
+    this.input.value = '';
+}
 displayElements()
 {
     while (this.taskList.firstChild) {
@@ -66,13 +73,42 @@ displayElements()
     let checkbox=this.createHTMLElement('input');
     checkbox.type="checkbox";
     checkbox.checked=task.check;
-    let span=this.createHTMLElement('span');
+    let span=this.createHTMLElement('span','editable');
     span.textContent=task.task;
     span.contentEditable=true;
     let deleteButton=this.createHTMLElement('button','delete');
     deleteButton.textContent="DELETE";
     li.append(checkbox,span,deleteButton);
     this.taskList.append(li);});
+}
+bindAddTask(handler)
+{
+    this.form.addEventListener('submit', (event) => {
+        event.preventDefault();
+    
+        if (this.todoText) {
+          handler(this.todoText);
+          this.resetInput();
+        }
+      })
+}
+bindDeleteTask(handler)
+{
+    this.todoList.addEventListener('click', (event) => {
+        if (event.target.className === 'delete') {
+          const id = parseInt(event.target.parentElement.id);
+          handler(id);
+        }
+      })
+}
+bindCheckedTask(handler)
+{
+    this.todoList.addEventListener('change', (event) => {
+        if (event.target.type === 'checkbox') {
+          const id = parseInt(event.target.parentElement.id);
+          handler(id);
+        }
+      })    
 }
 }
 let v=new View();
