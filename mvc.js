@@ -17,12 +17,21 @@ class Model{
     }
     editTask(id,updatedTask)
     {
-        this.toDoList=this.toDoList.forEach((toDo)=>
-        toDo.id===id?toDo.task=updatedTask:toDo.task);
+        let index = this.toDoList.findIndex((task) => task.id === id);
+        this.toDoList[index].task=updatedTask;
     }
     deleteTask(id)
     {
         let index = this.toDoList.findIndex((task) => task.id === id);
         this.toDoList.splice(index, 1);
     }
+    checkedTask(id)
+    {
+        let index=this.toDoList.findIndex((task) => task.id === id);
+        this.toDoList[index].checked=!this.toDoList[index].checked;
+    }
+}
+let m=new Model();
+class View{
+    
 }
