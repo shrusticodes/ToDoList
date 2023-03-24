@@ -31,6 +31,7 @@ class Model{
         this.toDoList[index].checked=!this.toDoList[index].checked;
     }
 }
+let m=new Model();
 class View{
 constructor(){
     this.mainDiv=this.getHTMLElement('#root');
@@ -58,7 +59,9 @@ getHTMLElement(selector)
 }
 displayElements()
 {
-    let m=new Model();
+    while (this.taskList.firstChild) {
+        this.taskList.removeChild(this.taskList.firstChild)
+      }     
     m.toDoList.forEach((task)=>{
     let li=this.createHTMLElement('li');
     li.id=task.id;
