@@ -28,7 +28,7 @@ class Model{
     checkedTask(id)
     {
         let index=this.toDoList.findIndex((task) => task.id === id);
-        this.toDoList[index].checked=!this.toDoList[index].checked;
+        this.toDoList[index].check=!this.toDoList[index].checks;
     }
 }
 let m=new Model();
