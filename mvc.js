@@ -1,11 +1,11 @@
 class Model{
     constructor(){
      this.toDoList=[
-      {id:81, task:"Plant a tree", checked:false},
-      {id:278, task:"Pick up the papers",checked:true},
-      {id:335, task:"Run 100m", checked:false},
-      {id:74, task:"Water the plants", checked:false},
-      {id:95, task:"Clean the house", checked:true}]
+      {id:81, task:"Plant a tree", check:false},
+      {id:278, task:"Pick up the papers",check:true},
+      {id:335, task:"Run 100m", check:false},
+      {id:74, task:"Water the plants", check:false},
+      {id:95, task:"Clean the house", check:true}]
     };
     addItem(currentTask)
     {
@@ -42,7 +42,7 @@ constructor(){
     this.input.name="task";
     this.submitButton=this.createHTMLElement('button');
     this.submitButton.textContent="SUBMIT";
-    this.taskList=this.createHTMLElement('ul', task_List);
+    this.taskList=this.createHTMLElement('ul');
     this.form.append(this.input,this.submitButton);
     this.mainDiv.append(this.title,this.form,this.taskList);
 }
@@ -56,4 +56,22 @@ getHTMLElement(selector)
     let element = document.querySelector(selector);
     return element;
 }
+displayElements()
+{
+    let m=new Model();
+    m.toDoList.forEach((task)=>{
+    let li=this.createHTMLElement('li');
+    li.id=task.id;
+    let checkbox=this.createHTMLElement('input');
+    checkbox.type="checkbox";
+    checkbox.checked=task.check;
+    let span=this.createHTMLElement('span');
+    span.textContent=task.task;
+    span.contentEditable=true;
+    let deleteButton=this.createHTMLElement('button');
+    deleteButton.textContent="Delete";
+    li.append(checkbox,span,deleteButton);
+    this.taskList.append(li);});
 }
+}
+let v=new View();
