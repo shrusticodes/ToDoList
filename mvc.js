@@ -34,9 +34,6 @@ class Model{
 let m=new Model();
 class View{
 constructor(){
-    this.mainDiv=this.getHTMLElement('#root');
-    this.title=this.createHTMLElement('h1');
-    this.title.textContent="To Do List";
     this.form=this.createHTMLElement('form');
     this.input=this.createHTMLElement('input');
     this.input.type="text";
@@ -45,11 +42,12 @@ constructor(){
     this.submitButton.textContent="SUBMIT";
     this.taskList=this.createHTMLElement('ul');
     this.form.append(this.input,this.submitButton);
-    this.mainDiv.append(this.title,this.form,this.taskList);
+    this.getHTMLElement('#root').append(this.form,this.taskList);
 }
-createHTMLElement(tagName)
+createHTMLElement(tagName,className)
 {
     let element = document.createElement(tagName);
+    if(className) element.className=className;
     return element;
 }
 getHTMLElement(selector)
@@ -71,7 +69,7 @@ displayElements()
     let span=this.createHTMLElement('span');
     span.textContent=task.task;
     span.contentEditable=true;
-    let deleteButton=this.createHTMLElement('button');
+    let deleteButton=this.createHTMLElement('button','delete');
     deleteButton.textContent="DELETE";
     li.append(checkbox,span,deleteButton);
     this.taskList.append(li);});
