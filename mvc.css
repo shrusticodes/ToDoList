@@ -13,7 +13,6 @@ html {
 #root {
   max-width: 450px;
   margin: 2rem auto;
-  background-color: darkgray;
   padding: 1rem;
 }
 
@@ -31,25 +30,27 @@ button {
 }
 button {
   cursor: pointer;
-  background: rgb(48, 44, 44);;
+  background: rgb(13, 127, 227);
+  border: solid 2px rgb(13, 127, 227) ;
   color: white;
   margin: 0 .5rem;
 }
 
 [type="text"] {
   width: 100%;
+  border: 2px solid black;
 }
 
 [type="text"]:active,
 [type="text"]:focus {
   outline: 0;
-  border: 2px solid rgb(48, 44, 44);;
+  border: 2px solid rgb(15, 142, 216);
 }
 
 [type="checkbox"] {
   margin-right: 1rem;
   font-size: 2rem;
-  accent-color:rgb(48, 44, 44);
+  accent-color:rgb(13, 127, 227);
   width: 30px;
   height: 23px;
 
@@ -81,11 +82,11 @@ li span {
 }
 
 li span:hover {
-  background: rgba(179, 215, 255, 0.52);
+  background: rgba(24, 115, 220, 0.52);
 }
 
 li span:focus {
   outline: 0;
   border: 2px solid rgb(48, 44, 44);;
-  background: rgba(179, 207, 255, 0.52)
+  background: rgba(80, 142, 249, 0.52)
 }
