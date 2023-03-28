@@ -14,21 +14,28 @@ class Model{
        task:currentTask,
        checked:false};
     this.toDoList.push(toDoObject);
+    this.getTaskList(this.toDoList);
     }
     editTask(id,updatedTask)
     {
         let index = this.toDoList.findIndex((task) => task.id === id);
         this.toDoList[index].task=updatedTask;
+        this.getTaskList(this.toDoList);
     }
     deleteTask(id)
     {
         let index = this.toDoList.findIndex((task) => task.id === id);
         this.toDoList.splice(index, 1);
+        this.getTaskList(this.toDoList);
     }
     checkedTask(id)
     {
         let index=this.toDoList.findIndex((task) => task.id === id);
         this.toDoList[index].check=!this.toDoList[index].check;
+        this.getTaskList(this.toDoList);
+    }
+    bindtoDoListChanges(callback){
+      this.getTaskList=callback;
     }
 }
 class View{
@@ -78,6 +85,7 @@ displayElements(toDoList)
     deleteButton.textContent="DELETE";
     li.append(checkbox,span,deleteButton);
     this.taskList.append(li);});
+    console.log(toDoList);
 }
 bindAddTask(handler)
 {
@@ -117,6 +125,7 @@ class Controller{
     this.view.bindAddTask(this.handleAddTask);
     this.view.bindCheckedTask(this.handleCheckedTask);
     this.view.bindDeleteTask(this.handleDeleteTask);
+    this.model.bindtoDoListChanges(this.getTaskList);
   }
   getTaskList=(task)=>{
     this.view.displayElements(task);
