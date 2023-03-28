@@ -31,7 +31,6 @@ class Model{
         this.toDoList[index].check=!this.toDoList[index].check;
     }
 }
-let m=new Model();
 class View{
 constructor(){
     this.form=this.createHTMLElement('form');
@@ -58,16 +57,15 @@ getHTMLElement(selector)
 get todoText() {
     return this.input.value;
   }
-  
 resetInput() {
     this.input.value = '';
 }
-displayElements()
+displayElements(toDoList)
 {
     while (this.taskList.firstChild) {
         this.taskList.removeChild(this.taskList.firstChild)
       }     
-    m.toDoList.forEach((task)=>{
+    toDoList.forEach((task)=>{
     let li=this.createHTMLElement('li');
     li.id=task.id;
     let checkbox=this.createHTMLElement('input');
@@ -94,7 +92,7 @@ bindAddTask(handler)
 }
 bindDeleteTask(handler)
 {
-    this.todoList.addEventListener('click', (event) => {
+    this.taskList.addEventListener('click', (event) => {
         if (event.target.className === 'delete') {
           const id = parseInt(event.target.parentElement.id);
           handler(id);
@@ -103,7 +101,7 @@ bindDeleteTask(handler)
 }
 bindCheckedTask(handler)
 {
-    this.todoList.addEventListener('change', (event) => {
+    this.taskList.addEventListener('change', (event) => {
         if (event.target.type === 'checkbox') {
           const id = parseInt(event.target.parentElement.id);
           handler(id);
@@ -111,4 +109,29 @@ bindCheckedTask(handler)
       })    
 }
 }
-let v=new View();
+class Controller{
+  constructor(model,view){
+    this.model=model;
+    this.view=view;
+    this.getTaskList(this.model.toDoList);
+    this.view.bindAddTask(this.handleAddTask);
+    this.view.bindCheckedTask(this.handleCheckedTask);
+    this.view.bindDeleteTask(this.handleDeleteTask);
+  }
+  getTaskList=(task)=>{
+    this.view.displayElements(task);
+  }
+  handleAddTask=(task)=>{
+    this.model.addItem(task);
+  }
+  handleDeleteTask=(id)=>{
+    this.model.deleteTask(id);
+  }
+  handleEditTask=(id,task)=>{
+    this.model.editTask(id,task);
+  }
+  handleCheckedTask=(id)=>{
+    this.model.checkedTask(id);
+  }
+}
+let controllerObject=new Controller(new Model(),new View());
