@@ -9,12 +9,9 @@ class Model{
     };
     addItem(currentTask)
     {
-    let toDoObject={
-       id:Math.floor(Math.random() * 1000 + 1),
-       task:currentTask,
-       checked:false};
-    this.toDoList.push(toDoObject);
-    this.getTaskList(this.toDoList);
+      let toDoObject={id:Math.floor(Math.random() * 1000 + 1),task:currentTask,check:false};
+      this.toDoList.push(toDoObject);
+      this.getTaskList(this.toDoList);
     }
     editTask(id,updatedTask)
     {
@@ -49,6 +46,8 @@ constructor(){
     this.taskList=this.createHTMLElement('ul');
     this.form.append(this.input,this.submitButton);
     this.getHTMLElement('#root').append(this.form,this.taskList);
+    this.temporaryToDo;
+    this.updateTemporarySpanText();
 }
 createHTMLElement(tagName,className)
 {
@@ -87,34 +86,51 @@ displayElements(toDoList)
     this.taskList.append(li);});
     console.log(toDoList);
 }
+updateTemporarySpanText()
+{
+  this.taskList.addEventListener("input",(element)=>{
+    if(element.target.className ==="editable") 
+    this.temporaryToDo = element.target.innerText;
+  });
+}
 bindAddTask(handler)
 {
-    this.form.addEventListener('submit', (event) => {
-        event.preventDefault();
+    this.form.addEventListener('submit', (element) => {
+        element.preventDefault();
     
         if (this.todoText) {
           handler(this.todoText);
           this.resetInput();
         }
-      })
+      });
 }
 bindDeleteTask(handler)
 {
-    this.taskList.addEventListener('click', (event) => {
-        if (event.target.className === 'delete') {
-          const id = parseInt(event.target.parentElement.id);
+    this.taskList.addEventListener('click', (element) => {
+        if (element.target.className === 'delete') {
+          const id = parseInt(element.target.parentElement.id);
           handler(id);
         }
-      })
+      });
 }
 bindCheckedTask(handler)
 {
-    this.taskList.addEventListener('change', (event) => {
-        if (event.target.type === 'checkbox') {
-          const id = parseInt(event.target.parentElement.id);
+    this.taskList.addEventListener('change', (element) => {
+        if (element.target.type === 'checkbox') {
+          const id = parseInt(element.target.parentElement.id);
           handler(id);
         }
-      })    
+      });  
+}
+bindEditTask(handler)
+{
+  this.taskList.addEventListener('focusout',(element)=>{
+    if(this.temporaryToDo){
+      let id = parseInt(element.target.parentElement.id);
+      handler(id,this.temporaryToDo);
+      this.temporaryToDo='';
+    }
+  });
 }
 }
 class Controller{
@@ -125,6 +141,7 @@ class Controller{
     this.view.bindAddTask(this.handleAddTask);
     this.view.bindCheckedTask(this.handleCheckedTask);
     this.view.bindDeleteTask(this.handleDeleteTask);
+    this.view.bindEditTask(this.handleEditTask);
     this.model.bindtoDoListChanges(this.getTaskList);
   }
   getTaskList=(task)=>{
