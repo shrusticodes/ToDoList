@@ -47,7 +47,6 @@ constructor(){
     this.form.append(this.input,this.submitButton);
     this.getHTMLElement('#root').append(this.form,this.taskList);
     this.temporaryToDo;
-    this.updateTemporarySpanText();
 }
 createHTMLElement(tagName,className)
 {
@@ -86,13 +85,6 @@ displayElements(toDoList)
     this.taskList.append(li);});
     console.log(toDoList);
 }
-updateTemporarySpanText()
-{
-  this.taskList.addEventListener("input",(element)=>{
-    if(element.target.className ==="editable") 
-    this.temporaryToDo = element.target.innerText;
-  });
-}
 passAddTaskValue(handler)
 {
     this.form.addEventListener('submit', (element) => {
@@ -124,6 +116,10 @@ passCheckedTaskValue(handler)
 }
 passEditTaskValue(handler)
 {
+  this.taskList.addEventListener("input",(element)=>{
+    if(element.target.className ==="editable") 
+    this.temporaryToDo = element.target.innerText;
+  });
   this.taskList.addEventListener('focusout',(element)=>{
     if(this.temporaryToDo){
       let id = parseInt(element.target.parentElement.id);
@@ -160,4 +156,4 @@ class Controller{
     this.model.checkedTask(id);
   }
 }
-let controllerObject=new Controller(new Model(),new View());
+new Controller(new Model(),new View());
