@@ -31,7 +31,7 @@ class Model{
         this.toDoList[index].check=!this.toDoList[index].check;
         this.getTaskList(this.toDoList);
     }
-    bindtoDoListChanges(callback){
+    passToDoListChanges(callback){
       this.getTaskList=callback;
     }
 }
@@ -93,7 +93,7 @@ updateTemporarySpanText()
     this.temporaryToDo = element.target.innerText;
   });
 }
-bindAddTask(handler)
+passAddTaskValue(handler)
 {
     this.form.addEventListener('submit', (element) => {
         element.preventDefault();
@@ -104,7 +104,7 @@ bindAddTask(handler)
         }
       });
 }
-bindDeleteTask(handler)
+passDeleteTaskValue(handler)
 {
     this.taskList.addEventListener('click', (element) => {
         if (element.target.className === 'delete') {
@@ -113,7 +113,7 @@ bindDeleteTask(handler)
         }
       });
 }
-bindCheckedTask(handler)
+passCheckedTaskValue(handler)
 {
     this.taskList.addEventListener('change', (element) => {
         if (element.target.type === 'checkbox') {
@@ -122,7 +122,7 @@ bindCheckedTask(handler)
         }
       });  
 }
-bindEditTask(handler)
+passEditTaskValue(handler)
 {
   this.taskList.addEventListener('focusout',(element)=>{
     if(this.temporaryToDo){
@@ -138,11 +138,11 @@ class Controller{
     this.model=model;
     this.view=view;
     this.getTaskList(this.model.toDoList);
-    this.view.bindAddTask(this.handleAddTask);
-    this.view.bindCheckedTask(this.handleCheckedTask);
-    this.view.bindDeleteTask(this.handleDeleteTask);
-    this.view.bindEditTask(this.handleEditTask);
-    this.model.bindtoDoListChanges(this.getTaskList);
+    this.view.passAddTaskValue(this.handleAddTask);
+    this.view.passCheckedTaskValue(this.handleCheckedTask);
+    this.view.passDeleteTaskValue(this.handleDeleteTask);
+    this.view.passEditTaskValue(this.handleEditTask);
+    this.model.passToDoListChanges(this.getTaskList);
   }
   getTaskList=(task)=>{
     this.view.displayElements(task);
