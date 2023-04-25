@@ -13,13 +13,13 @@ export class View {
     }
     
     createHTMLElement(tagName, className) {
-        let element = document.createElement(tagName);
+        const element = document.createElement(tagName);
         if (className) element.className = className;
         return element;
     }
     
     getHTMLElement(selector) {
-        let element = document.querySelector(selector);
+        const element = document.querySelector(selector);
         return element;
     }
     
@@ -37,15 +37,15 @@ export class View {
         }
         
         toDoList.forEach((task) => {
-            let li = this.createHTMLElement('li');
+            const li = this.createHTMLElement('li');
             li.id = task.id;
-            let checkbox = this.createHTMLElement('input');
+            const checkbox = this.createHTMLElement('input');
             checkbox.type = "checkbox";
             checkbox.checked = task.check;
-            let span = this.createHTMLElement('span', 'editable');
+            const span = this.createHTMLElement('span', 'editable');
             span.textContent = task.task;
             span.contentEditable = true;
-            let deleteButton = this.createHTMLElement('button', 'delete');
+            const deleteButton = this.createHTMLElement('button', 'delete');
             deleteButton.textContent = "DELETE";
             li.append(checkbox, span, deleteButton);
             this.taskList.append(li);
@@ -86,7 +86,7 @@ export class View {
               });
               this.taskList.addEventListener('focusout', (element) => {
               if (this.temporaryToDo) {
-              let id = parseInt(element.target.parentElement.id);
+              const  id = parseInt(element.target.parentElement.id);
               handler(id, this.temporaryToDo);
               this.temporaryToDo = '';
               }

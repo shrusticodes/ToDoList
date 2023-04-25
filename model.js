@@ -1,11 +1,19 @@
 export class Model{
-  constructor(){
-      this.toDoList = JSON.parse(localStorage.getItem('toDoList')) || [];
+//   constructor(){
+//       this.toDoList = JSON.parse(localStorage.getItem('toDoList')) || [];
+//   }
+constructor(key) {
+    if (key === 'local') {
+      this.storage = localStorage;
+    } else if (key === 'session') {
+      this.storage = sessionStorage;
+    } 
+    this.toDoList = JSON.parse(this.storage.getItem('toDoList')) || [];
   }
   
   _commit(toDoList) {
-      this.onTodoListChanged(toDoList)
-      localStorage.setItem('toDoList', JSON.stringify(toDoList))
+    this.onTodoListChanged(toDoList);
+    this.storage.setItem('toDoList', JSON.stringify(toDoList));
   }
   
   addItem(currentTask) {

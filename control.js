@@ -27,4 +27,4 @@ class Controller{
       this.model.checkedTask(id);
     }
   }
-new Controller(new Model(),new View());
+new Controller(new Model("local"),new View());
